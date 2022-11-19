@@ -1,4 +1,5 @@
 const datastore = require("./datastore");
 const years = require("./years.json");
-console.log(datastore.India.MacroEconomics.FDINetOutflows.length);
+const fg = "FDINetOutflows%GDP";
+console.log(datastore.India.Debt.TotalReservesMonthsOfImports.length);
 console.log(years.Years.length);
