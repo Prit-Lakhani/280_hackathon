@@ -11,9 +11,9 @@ import "./Import.css";
 var data = require("./importgrains.json");
 
 function Import(props) {
-  const [country, setCountry] = useState("select country");
-  const [year, setYear] = useState("select year");
-  const [crop, setCrop] = useState("select crop");
+  const [country, setCountry] = useState("Egypt");
+  const [year, setYear] = useState("2019");
+  const [crop, setCrop] = useState("Wheat");
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const [sankeyData, setData] = useState([]);
@@ -25,7 +25,9 @@ function Import(props) {
     //     const yearData = data[0].year1;
     //     //console.log(country)
     // })
-  });
+ setDataFunc (country, year, crop);
+
+  },[]);
 
   const getDataFunction = () => {
     console.log(data);

@@ -26,8 +26,8 @@ export const Basket = () => {
   const [yields, setYield] = useState(false);
   const [imports, setImports] = useState(false);
   const [timeSeries, setTimeSeries] = useState(true);
-  // const [annotations, setAnnotations] = useState([]);
-  // const [newAnnotation, setNewAnnotation] = useState("");
+  const [annotations, setAnnotations] = useState([]);
+  const [newAnnotation, setNewAnnotation] = useState("");
   const [yieldcountry, setYieldCountry] = useState("Iran");
   
   const [{ isOver }, dropRef] = useDrop({
@@ -41,9 +41,9 @@ export const Basket = () => {
     }),
   });
 
-  // useEffect(() => {
-  //   setLS();
-  // }, []);
+  useEffect(() => {
+     setLS();
+   }, []);
 
   const getDateRange = async (dates) => {
     await setStartDate(dates[0]);
@@ -89,15 +89,15 @@ export const Basket = () => {
     }
   };
   const setLS = () => {
-    localStorage.setItem("Annotations", []);
+    localStorage.setItem("Annotations", JSON.stringify([]));
   };
-  const pushAnnotation = async (val) => {
-    let list = localStorage.getItem("Annotations");
-    console.log("THIS", list);
+
+  const pushAnnotation = async () => {
+    let list = JSON.parse(localStorage.getItem("Annotations"));
     if (list === "") list = [];
-    list.push(val);
+    list.push(newAnnotation);
     await setAnnotations(list);
-    await localStorage.setItem("Annotations", list);
+    await localStorage.setItem("Annotations", JSON.stringify(list));
   };
 
   const getData = (name) => {
@@ -392,7 +392,7 @@ export const Basket = () => {
                       </>
                     ))}
                   </div>
-                  {/* <div className="column" style={{ marginTop: "3%" }}>
+                  { <div className="column" style={{ marginTop: "3%" }}>
                     <textarea
                       rows="6"
                       cols="33"
@@ -413,14 +413,15 @@ export const Basket = () => {
                       }}
                       onClick={() => pushAnnotation()}
                     >
-                      Save
+                      Add Note
                     </button>
-                    <div style={{ height: "50px", width: "50px" }}>
+                    <div style={{ height: "100px", width: "100px" }}>
                       {annotations.map((a, i) => (
-                        <>{a}</>
+                        <><p>{a}</p></>
+                        
                       ))}
                     </div>
-                  </div> */}
+                  </div> }
                 </div>
               </>
             )}
