@@ -13,6 +13,7 @@ import data from "../DATA/data";
 import years from "../DATA/years";
 import { Chart } from "react-google-charts";
 import chartNames from "./chartNames";
+import Import from "../IMPORT/Import";
 
 export const Basket = () => {
   const [basket, setBasket] = useState([]);
@@ -169,7 +170,9 @@ export const Basket = () => {
 
   return (
     <React.Fragment>
-      <div className="container">
+      <div
+      //  style={{ backgroundColor: "brown" }}
+      >
         <div className="row" style={{ marginLeft: "30%" }}>
           <RangeSlider getDateRange={getDateRange} />
           <select
@@ -328,7 +331,7 @@ export const Basket = () => {
             ref={dropRef}
             style={{
               backgroundColor: "aliceblue",
-              width: "800px",
+              width: "1000px",
               height: "1000px",
               marginLeft: "3%",
             }}
@@ -354,7 +357,11 @@ export const Basket = () => {
               </>
             )}
             {crops && <>CROPS WILL BE HERE</>}
-            {imports && <>IMPORTS WILL BE HERE</>}
+            {imports && (
+              <>
+                <Import />
+              </>
+            )}
           </div>
         </div>
       </div>
