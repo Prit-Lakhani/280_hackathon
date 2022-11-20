@@ -1,0 +1,10 @@
+.map-container {
+  width: 100%;
+  height: 90vh;
+}
+
+.maps_both {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
