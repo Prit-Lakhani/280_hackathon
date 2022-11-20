@@ -14,6 +14,7 @@ import years from "../DATA/years";
 import { Chart } from "react-google-charts";
 import chartNames from "./chartNames";
 import Import from "../IMPORT/Import";
+import Maps from "../MAPS/maps";
 
 export const Basket = () => {
   const [basket, setBasket] = useState([]);
@@ -356,7 +357,12 @@ export const Basket = () => {
                 <div>YIELD WILL DISPLAY HERE</div>
               </>
             )}
-            {crops && <>CROPS WILL BE HERE</>}
+            {crops && (
+              <>
+                {/* THIS */}
+                <Maps />
+              </>
+            )}
             {imports && (
               <>
                 <Import />

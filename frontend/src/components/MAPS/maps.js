@@ -1,4 +1,5 @@
-import { React, useMemo, useState } from "react";
+import React from "react";
+import { useState } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -224,7 +225,13 @@ function LoadMap() {
         <select
           name="selectList"
           id="selectList"
-          style={{ marginBottom: "10px" }}
+          style={{
+            margin: "2%",
+            backgroundColor: "#0096FF",
+            color: "white",
+            fontWeight: "bolder",
+            height: "30px",
+          }}
           onChange={(e) => {
             myfun(e.target.value);
           }}
@@ -238,7 +245,7 @@ function LoadMap() {
       </span>
 
       <div className="maps_both">
-        <div id="map1" style={{ marginLeft: "30px" }}>
+        <div id="map1" style={{ marginLeft: "10px" }}>
           <GoogleMap
             zoom={5}
             center={map1_markers[0].position}
@@ -258,7 +265,7 @@ function LoadMap() {
           <h2>{map1Name}</h2>
         </div>
 
-        <div id="map2" style={{ marginLeft: "30px", marginRight: "30px" }}>
+        <div id="map2" style={{ marginLeft: "10px", marginRight: "10px" }}>
           <GoogleMap
             zoom={5}
             center={map2_markers[0].position}
