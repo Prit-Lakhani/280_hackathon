@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 import ChartType from "./chartType";
 import Accordion from "@mui/material/Accordion";
@@ -25,6 +25,8 @@ export const Basket = () => {
   const [yields, setYield] = useState(false);
   const [imports, setImports] = useState(false);
   const [timeSeries, setTimeSeries] = useState(true);
+  // const [annotations, setAnnotations] = useState([]);
+  // const [newAnnotation, setNewAnnotation] = useState("");
   const [{ isOver }, dropRef] = useDrop({
     accept: "chartText",
     drop: (item) =>
@@ -35,6 +37,10 @@ export const Basket = () => {
       isOver: monitor.isOver(),
     }),
   });
+
+  // useEffect(() => {
+  //   setLS();
+  // }, []);
 
   const getDateRange = async (dates) => {
     await setStartDate(dates[0]);
@@ -78,6 +84,17 @@ export const Basket = () => {
       default:
         return data.USA;
     }
+  };
+  const setLS = () => {
+    localStorage.setItem("Annotations", []);
+  };
+  const pushAnnotation = async (val) => {
+    let list = localStorage.getItem("Annotations");
+    console.log("THIS", list);
+    if (list === "") list = [];
+    list.push(val);
+    await setAnnotations(list);
+    await localStorage.setItem("Annotations", list);
   };
 
   const getData = (name) => {
@@ -334,24 +351,60 @@ export const Basket = () => {
               backgroundColor: "aliceblue",
               width: "1000px",
               height: "1000px",
-              marginLeft: "3%",
+              marginLeft: "2%",
             }}
           >
-            {timeSeries &&
-              basket.map((pet) => (
-                <>
-                  <div style={{ marginLeft: "5%", marginTop: "2%" }}>
-                    <Chart
-                      chartType="LineChart"
-                      data={getData(pet.name)}
-                      options={getOptions(pet.name)}
-                      width="90%"
-                      height="200px"
-                      legendToggle
-                    />
+            {timeSeries && (
+              <>
+                <div className="row">
+                  <div className="column" style={{ width: "80%" }}>
+                    {basket.map((pet) => (
+                      <>
+                        <div style={{ marginLeft: "5%", marginTop: "2%" }}>
+                          <Chart
+                            chartType="LineChart"
+                            data={getData(pet.name)}
+                            options={getOptions(pet.name)}
+                            width="90%"
+                            height="200px"
+                            legendToggle
+                          />
+                        </div>
+                      </>
+                    ))}
                   </div>
-                </>
-              ))}
+                  {/* <div className="column" style={{ marginTop: "3%" }}>
+                    <textarea
+                      rows="6"
+                      cols="33"
+                      onChange={(e) => setNewAnnotation(e.target.value)}
+                    ></textarea>
+                    <br />
+                    <button
+                      style={{
+                        width: "100px",
+                        height: "25px",
+                        color: "#0096FF",
+                        backgroundColor: "white",
+                        borderColor: "#0096FF",
+                        borderStyle: "solid",
+                        borderWidth: "2px",
+                        margin: "5%",
+                        fontWeight: "bold",
+                      }}
+                      onClick={() => pushAnnotation()}
+                    >
+                      Save
+                    </button>
+                    <div style={{ height: "50px", width: "50px" }}>
+                      {annotations.map((a, i) => (
+                        <>{a}</>
+                      ))}
+                    </div>
+                  </div> */}
+                </div>
+              </>
+            )}
             {yields && (
               <>
                 <div>YIELD WILL DISPLAY HERE</div>
