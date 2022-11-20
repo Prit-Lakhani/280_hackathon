@@ -103,14 +103,10 @@ class Navbar extends PureComponent {
           >
             {/* {this.getLoginTabs()} */}
             <li className="nav-item">
-              <a
-                className="nav-link text-white"
-                href="/timeseries"
-                role="button"
-              >
+              <a className="nav-link text-white" href="/home" role="button">
                 <span className="glyphicon glyphicon-home" />
                 {"  "}
-                <h4 className="inline">TimeSeries</h4>
+                <h4 className="inline">HOME</h4>
               </a>
             </li>
           </ul>
