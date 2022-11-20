@@ -15,6 +15,7 @@ import { Chart } from "react-google-charts";
 import chartNames from "./chartNames";
 import Import from "../IMPORT/Import";
 import Maps from "../MAPS/maps";
+import RenderYield from "../YIELDS/yields";
 
 export const Basket = () => {
   const [basket, setBasket] = useState([]);
@@ -27,6 +28,8 @@ export const Basket = () => {
   const [timeSeries, setTimeSeries] = useState(true);
   // const [annotations, setAnnotations] = useState([]);
   // const [newAnnotation, setNewAnnotation] = useState("");
+  const [yieldcountry, setYieldCountry] = useState("Iran");
+  
   const [{ isOver }, dropRef] = useDrop({
     accept: "chartText",
     drop: (item) =>
@@ -193,7 +196,7 @@ export const Basket = () => {
       >
         <div className="row" style={{ marginLeft: "30%" }}>
           <RangeSlider getDateRange={getDateRange} />
-          <select
+          { timeSeries && <select
             name="countries"
             id="countries"
             value={country}
@@ -209,7 +212,23 @@ export const Basket = () => {
             <option value="USA">USA</option>
             <option value="INDIA">INDIA</option>
             <option value="CHINA">CHINA</option>
-          </select>
+          </select> }
+          { yields &&  <select
+            name="yields"
+            id="yields"
+            value={yieldcountry}
+            onChange={(e) => setYieldCountry(e.target.value)}
+            style={{
+              marginLeft: "10%",
+              backgroundColor: "#0096FF",
+              color: "white",
+              fontWeight: "bolder",
+              height: "30px",
+            }}
+          >
+            <option value="Iran">Walnuts</option>
+            <option value="Philippines">Mangoes</option>
+          </select>}
         </div>
         <div className="row">
           <div
@@ -407,7 +426,7 @@ export const Basket = () => {
             )}
             {yields && (
               <>
-                <div>YIELD WILL DISPLAY HERE</div>
+                <RenderYield country={yieldcountry} startDate={startDate} endDate={endDate}/>
               </>
             )}
             {crops && (
