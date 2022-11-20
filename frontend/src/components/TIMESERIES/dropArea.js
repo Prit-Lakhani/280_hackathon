@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDrop } from "react-dnd";
 import ChartType from "./chartType";
 import Accordion from "@mui/material/Accordion";
+import Button from "@mui/material/Button";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
@@ -18,6 +19,10 @@ export const Basket = () => {
   const [startDate, setStartDate] = useState(1960);
   const [endDate, setEndDate] = useState(2020);
   const [country, setCountry] = useState("USA");
+  const [crops, setCrops] = useState(false);
+  const [yields, setYield] = useState(false);
+  const [imports, setImports] = useState(false);
+  const [timeSeries, setTimeSeries] = useState(true);
   const [{ isOver }, dropRef] = useDrop({
     accept: "chartText",
     drop: (item) =>
@@ -32,6 +37,32 @@ export const Basket = () => {
   const getDateRange = async (dates) => {
     await setStartDate(dates[0]);
     await setEndDate(dates[1]);
+  };
+
+  const getCrops = async () => {
+    await setTimeSeries(false);
+    await setCrops(true);
+    await setYield(false);
+    await setImports(false);
+  };
+
+  const getYields = async () => {
+    await setTimeSeries(false);
+    await setCrops(false);
+    await setYield(true);
+    await setImports(false);
+  };
+  const getImports = async () => {
+    await setTimeSeries(false);
+    await setCrops(false);
+    await setYield(false);
+    await setImports(true);
+  };
+  const getTimeSeries = async () => {
+    await setTimeSeries(true);
+    await setCrops(false);
+    await setYield(false);
+    await setImports(false);
   };
 
   const countrySpecificData = () => {
@@ -168,103 +199,129 @@ export const Basket = () => {
               backgroundColor: "lightgray",
             }}
           >
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography>Macroeconomics (USD)</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <ChartType
-                  draggable
-                  name={chartNames.MacroEconomics.GDPGrowthRange}
-                />
-                <ChartType
-                  draggable
-                  name={chartNames.MacroEconomics.GDPCurrent}
-                />
-                <ChartType
-                  draggable
-                  name={chartNames.MacroEconomics.CurrentAccountBalance}
-                />
-                <ChartType
-                  draggable
-                  name={chartNames.MacroEconomics.FDINetCurrent}
-                />
-                <ChartType
-                  draggable
-                  name={chartNames.MacroEconomics.FDINetIn}
-                />
-                <ChartType
-                  draggable
-                  name={chartNames.MacroEconomics.FDINetOut}
-                />
-                <ChartType
-                  draggable
-                  name={chartNames.MacroEconomics.FDINetOutflows}
-                />
-              </AccordionDetails>
-            </Accordion>
+            {timeSeries && (
+              <>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography>Macroeconomics (USD)</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <ChartType
+                      draggable
+                      name={chartNames.MacroEconomics.GDPGrowthRange}
+                    />
+                    <ChartType
+                      draggable
+                      name={chartNames.MacroEconomics.GDPCurrent}
+                    />
+                    <ChartType
+                      draggable
+                      name={chartNames.MacroEconomics.CurrentAccountBalance}
+                    />
+                    <ChartType
+                      draggable
+                      name={chartNames.MacroEconomics.FDINetCurrent}
+                    />
+                    <ChartType
+                      draggable
+                      name={chartNames.MacroEconomics.FDINetIn}
+                    />
+                    <ChartType
+                      draggable
+                      name={chartNames.MacroEconomics.FDINetOut}
+                    />
+                    <ChartType
+                      draggable
+                      name={chartNames.MacroEconomics.FDINetOutflows}
+                    />
+                  </AccordionDetails>
+                </Accordion>
 
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <Typography>Agricultural</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <ChartType
+                      draggable
+                      name={chartNames.Agricultural.AgriContribution}
+                    />
+                    <ChartType
+                      draggable
+                      name={chartNames.Agricultural.AgriManufacture}
+                    />
+                    <ChartType
+                      draggable
+                      name={chartNames.Agricultural.AgriForfish}
+                    />
+                    <ChartType
+                      draggable
+                      name={chartNames.Agricultural.AgriFertilizerKG}
+                    />
+                    <ChartType
+                      draggable
+                      name={chartNames.Agricultural.AgriFertilizerPercent}
+                    />
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <Typography>Debt Services</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <ChartType
+                      draggable
+                      name={chartNames.Debt.TotalReserveMonths}
+                    />
+                    <ChartType
+                      draggable
+                      name={chartNames.Debt.TotalReserveCurrent}
+                    />
+                    <ChartType
+                      draggable
+                      name={chartNames.Debt.TotalReservePercent}
+                    />
+                    <ChartType draggable name={chartNames.Debt.DebtService} />
+                    <ChartType
+                      draggable
+                      name={chartNames.Debt.TotalDebtService}
+                    />
+                    <ChartType draggable name={chartNames.Debt.DebtGNI} />
+                  </AccordionDetails>
+                </Accordion>
+              </>
+            )}
+
+            <Button style={styles.buttonStyle} onClick={() => getCrops()}>
+              Crops
+            </Button>
+            <br />
+            <Button style={styles.buttonStyle} onClick={() => getImports()}>
+              Import/Export
+            </Button>
+            <Button style={styles.buttonStyle} onClick={() => getYields()}>
+              Yield
+            </Button>
+            {timeSeries === false && (
+              <Button
+                style={styles.buttonStyle}
+                onClick={() => getTimeSeries()}
               >
-                <Typography>Agricultural</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <ChartType
-                  draggable
-                  name={chartNames.Agricultural.AgriContribution}
-                />
-                <ChartType
-                  draggable
-                  name={chartNames.Agricultural.AgriManufacture}
-                />
-                <ChartType
-                  draggable
-                  name={chartNames.Agricultural.AgriForfish}
-                />
-                <ChartType
-                  draggable
-                  name={chartNames.Agricultural.AgriFertilizerKG}
-                />
-                <ChartType
-                  draggable
-                  name={chartNames.Agricultural.AgriFertilizerPercent}
-                />
-              </AccordionDetails>
-            </Accordion>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
-              >
-                <Typography>Debt Services</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <ChartType
-                  draggable
-                  name={chartNames.Debt.TotalReserveMonths}
-                />
-                <ChartType
-                  draggable
-                  name={chartNames.Debt.TotalReserveCurrent}
-                />
-                <ChartType
-                  draggable
-                  name={chartNames.Debt.TotalReservePercent}
-                />
-                <ChartType draggable name={chartNames.Debt.DebtService} />
-                <ChartType draggable name={chartNames.Debt.TotalDebtService} />
-                <ChartType draggable name={chartNames.Debt.DebtGNI} />
-              </AccordionDetails>
-            </Accordion>
+                TimeSeries
+              </Button>
+            )}
           </div>
           <div
             className="column"
@@ -276,20 +333,28 @@ export const Basket = () => {
               marginLeft: "3%",
             }}
           >
-            {basket.map((pet) => (
+            {timeSeries &&
+              basket.map((pet) => (
+                <>
+                  <div style={{ marginLeft: "5%", marginTop: "2%" }}>
+                    <Chart
+                      chartType="LineChart"
+                      data={getData(pet.name)}
+                      options={getOptions(pet.name)}
+                      width="90%"
+                      height="200px"
+                      legendToggle
+                    />
+                  </div>
+                </>
+              ))}
+            {yields && (
               <>
-                <div style={{ marginLeft: "5%", marginTop: "2%" }}>
-                  <Chart
-                    chartType="LineChart"
-                    data={getData(pet.name)}
-                    options={getOptions(pet.name)}
-                    width="90%"
-                    height="200px"
-                    legendToggle
-                  />
-                </div>
+                <div>YIELD WILL DISPLAY HERE</div>
               </>
-            ))}
+            )}
+            {crops && <>CROPS WILL BE HERE</>}
+            {imports && <>IMPORTS WILL BE HERE</>}
           </div>
         </div>
       </div>
@@ -298,3 +363,15 @@ export const Basket = () => {
 };
 
 export default Basket;
+const styles = {
+  buttonStyle: {
+    width: "200px",
+    color: "#0096FF",
+    backgroundColor: "white",
+    borderColor: "#0096FF",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    margin: "5%",
+    fontWeight: "bold",
+  },
+};
