@@ -1,0 +1,42 @@
+.layout-imp{
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+}
+
+.css-187mznn-MuiSlider-root{
+    width: 40vw !important;
+}
+
+.Row1{
+    padding: 50px;
+}
+
+.import-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.display-drop{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+
+}
+
+.display-grid{
+    display: grid;
+    margin-top: 10px;
+    grid-template-columns: 0.8fr 0.7fr 1fr;
+}
+
+.grid-charts{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.chart1{
+    padding: 20px;
+}
+
+.chart2{
+    padding: 20px;
+}
