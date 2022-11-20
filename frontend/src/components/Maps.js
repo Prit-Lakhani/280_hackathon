@@ -175,6 +175,8 @@ function LoadMap() {
 
   const [map1_markers, setMap1_markers] = useState([...china]);
   const [map2_markers, setMap2_markers] = useState([...indonesia]);
+  const [map1Name, setmap1Name] = useState("China");
+  const [map2Name, setmap2Name] = useState("Indonesia");
 
   const myfun = (v) => {
     console.log(v);
@@ -182,14 +184,20 @@ function LoadMap() {
     if (v === "Banana") {
       setMap1_markers([...china]);
       setMap2_markers([...indonesia]);
+      setmap1Name("China");
+      setmap2Name("Indonesia");
     }
     if (v === "Mangoes") {
       setMap1_markers([...philipines]);
       setMap2_markers([...india]);
+      setmap1Name("Philipins");
+      setmap2Name("India");
     }
     if (v === "Walnuts") {
       setMap1_markers([...california]);
       setMap2_markers([...iran]);
+      setmap1Name("California");
+      setmap2Name("Iran");
     }
   };
 
@@ -211,8 +219,8 @@ function LoadMap() {
   };
 
   return (
-    <div className="maps_both">
-      <span>
+    <div className="main">
+      <span style={{ marginTop: "15px" }}>
         <select
           name="selectList"
           id="selectList"
@@ -228,34 +236,48 @@ function LoadMap() {
         </select>
         <p>Selected crops: {dropdownstate}</p>
       </span>
-      <GoogleMap
-        zoom={5}
-        center={map1_markers[0].position}
-        mapContainerClassName="map-container"
-      >
-        {map1_markers.map(({ id, position }) => (
-          <div>
-            <MarkerF
-              position={position}
-              // animation={window.google.maps.Animation.DROP}
-            />
-            <Circle center={position} radius={15000} options={defaultOptions} />
-          </div>
-        ))}
-      </GoogleMap>
-      Map 2
-      <GoogleMap
-        zoom={5}
-        center={map2_markers[0].position}
-        mapContainerClassName="map-container"
-      >
-        {map2_markers.map(({ id, position }) => (
-          <div>
-            <MarkerF position={position} />
-            <Circle center={position} radius={15000} options={defaultOptions} />
-          </div>
-        ))}
-      </GoogleMap>
+
+      <div className="maps_both">
+        <div id="map1" style={{ marginLeft: "30px" }}>
+          <GoogleMap
+            zoom={5}
+            center={map1_markers[0].position}
+            mapContainerClassName="map-container"
+          >
+            {map1_markers.map(({ id, position }) => (
+              <div>
+                <MarkerF position={position} />
+                <Circle
+                  center={position}
+                  radius={15000}
+                  options={defaultOptions}
+                />
+              </div>
+            ))}
+          </GoogleMap>
+          <h2>{map1Name}</h2>
+        </div>
+
+        <div id="map2" style={{ marginLeft: "30px", marginRight: "30px" }}>
+          <GoogleMap
+            zoom={5}
+            center={map2_markers[0].position}
+            mapContainerClassName="map-container"
+          >
+            {map2_markers.map(({ id, position }) => (
+              <div>
+                <MarkerF position={position} />
+                <Circle
+                  center={position}
+                  radius={15000}
+                  options={defaultOptions}
+                />
+              </div>
+            ))}
+          </GoogleMap>
+          <h2>{map2Name}</h2>
+        </div>
+      </div>
     </div>
   );
 }
