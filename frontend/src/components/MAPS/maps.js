@@ -10,7 +10,7 @@ import "./maps.css";
 
 const Map = () => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyDlsGObmInjb8NMAcOkF9H7keSr1v_t_d0",
+    googleMapsApiKey: "API KEY",
   });
 
   if (!isLoaded) return <div>Loading...</div>;
